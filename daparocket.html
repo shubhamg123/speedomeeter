@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="rocket.css">
+</head>
+<body>
+    
+
+   
+    <div id="speedtimeinput">
+        <span id="s">speed in km/h: <input type="number" id="speed"></span>
+    <span>Minutes:
+        <input class="e-input e-field" 
+               type="number" 
+               id="minutesid" 
+               name="quMin" 
+               min="0" 
+               max="60">
+    </span>
+    <span>Seconds:
+        <input class="e-input e-field" 
+               type="number" 
+               id="secondid" 
+               name="quSec" 
+               min="0" 
+               max="60">
+    </span>
+</div>
+
+<div id="container">
+    <div id="currentspeed">
+       <span id="currentspeed1">currentspeed:</span>
+    </div>
+    <div id="currenttime">
+        <p>current time:<span id="seconds">00</span>:<span id="tens">00</span></p>
+    </div>
+    <div id="currentdistance">
+        <span id="currentdistance1">currentdistance:</span>
+    </div>
+</div>
+<div id="buttons"> 
+    <button class="start">start</button>
+    <button class="reset">reset</button>
+    <button class="stop">stop</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="rocket.js"></script>
+</body>
+</html>

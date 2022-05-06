@@ -1,0 +1,40 @@
+#speedtimeinput{
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-count: 50%;
+}
+#container{
+ max-width: 60%;
+ height: 300px;
+background-color: rgb(104, 104, 10);
+margin: auto;
+}
+
+#buttons{
+    position: relative;
+display: flex;
+justify-content: center;
+}
+#currentspeed{
+ height: 33%;
+ background-color: rgb(205, 210, 214);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+#currenttime{
+    height: 33%;
+    background-color: rgb(195, 235, 18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#currentdistance{
+
+height:33%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
