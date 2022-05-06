@@ -1,0 +1,378 @@
+html:
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="exam.css">
+</head>
+<body>
+    <div id="popup" style="display:none">
+        <div id="container3">
+            <p >add fields</p>
+            
+            <p>label: <input type="text" id="newinputlabel" class="name" ></p>
+            <p >fieldtype:<select name="options" id="options">
+                <option value="text">text</option>
+                <option value="date">date</option>
+                <option value="integer">integer</option>
+             </select></p>
+            <button id="add" onclick="addnewfield()" style="margin-left:5px;">ADD FIELD</button>
+            <button id="add" onclick="addclasss()">cancel</button>
+       </div>
+   
+
+
+
+    </div>
+   <div id="parent"> 
+       <div id="container">
+     <p >ID CARD form</p>
+     <button id="add1" onclick="addclasss()">ADD NREW  FIELD</button>
+     <p>name: <input type="text" class="name" onkeypress="update()"></p>
+     <p>dob: <input type="date" class="birthday" name="birthday" onkeypress="update(this)"></p>
+     
+     <p>class: <input type="text" class="class" name="class" onkeypress="update(this)"></p>
+     <p>choose photo<input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)"></p>
+</div>
+</div>
+   <div id="parent2">
+
+    <div id="container2">
+  
+            <p >california university</p>
+    
+            <p>name: <input type="text" class="name"></p>
+            <p>dob: <input type="date" class="birthday" name="birthday"></p>
+            <img id="output" width="200"/>	
+            <p>class: <input type="text" class="class" name="class"></p>
+           
+
+
+
+    </div>
+</div>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    </script>
+    <script src="exam.js"></script>
+</body>
+</html>
+css:
+#parent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+
+#container{
+
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: aliceblue;
+  margin-top: 40px;
+  width: 50%;
+}
+#add{
+
+margin-left: 100px;
+
+}
+#parent2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+
+}
+#container2{
+  margin-top: 30px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width:50%;
+  background-color: blue;
+
+}
+#popup{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+
+
+
+}
+.popup{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+
+
+
+}
+.container3{
+
+    margin-top: 30px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width:50%;
+  background-color: blue;
+
+}
+#container3{
+
+    margin-top: 30px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width:50%;
+  background-color: blue;
+
+}
+.show{
+
+
+    display: block;
+}
+js:
+let a=document.getElementById('container')
+let b=document.getElementById('container2')
+let btn=document.getElementById('add')
+function update(){
+  
+   var c= document.getElementsByClassName(event.target.className)
+  console.log(c);
+   var x=event.target.value;
+   console.log(x)
+   for(var i=0;i<c.length;i++)   
+{
+   c[i].value=x;
+
+}
+
+
+
+}
+function addnewfield(){
+  let label=document.getElementById('newinputlabel').value
+ var f=  document.getElementById("options")
+  let type = f.options[f.selectedIndex].value;
+  var p=document.createElement('p')
+  var field=document.createElement('input')
+  field.setAttribute("type", `${type}`)
+  field.setAttribute("class",`"class${Math.random()}"`)
+  field.setAttribute('onkeypress','update()')
+  p.innerText=`${label} :`;
+  p.appendChild(field)
+  console.log(p)
+  console.log(a)
+  console.log(b)
+  var clone= p.cloneNode(true)
+  b.appendChild(p)
+  a.appendChild(clone)
+}
+function addclasss(){
+ 
+let x=document.getElementById('popup')
+if (x.style.display === "none") {
+    x.style.display = "flex";
+    x.style.alignItems="center";
+    x.style.justifyContent="center";
+    let p=document.getElementById('container3')
+    p.style.backgroundColor="lightgreen";
+    
+
+  } else {
+    x.style.display = "none";
+  }
+}
+
+
+
+apex question 1:
+
+
+@RESTResource(urlMapping='/returnoppotunity/')
+global  class returnoppotunity
+{
+    @HTTPPost
+    global static string main()
+    {  list<lead> jj=new list<lead>();
+   
+    
+       RestRequest req=RestContext.request;
+       RestResponse res=RestContext.response; 
+       string jsonbody=req.requestBody.toString();
+       Map<String,Object> mp =(map<string,object>)JSON.deserializeUntyped(jsonbody);
+     
+       system.debug('body is'+jsonbody);
+       system.debug(mp);
+     id x=(id)mp.get('id');
+     DescribeSObjectResult describeResult = x.getSObjectType().getDescribe();     
+  
+     Map<String, Schema.SObjectField> fieldMaps = describeResult.fields.getMap();
+     set<String> fieldNames = fieldMaps.keySet();
+     list<string> b=new list<string>();
+     b.addAll((fieldnames));
+     String soqlQuery = ' SELECT ' + string.join(b,',') + ' FROM ' + describeResult.getName() + ' Where Id =: x';
+    opportunity a= Database.query(soqlQuery);
+     id f1=a.AccountId;
+     system.debug(a.accountid);
+     DescribeSObjectResult describeResultaccount = a.AccountId.getSObjectType().getDescribe();     
+  
+     Map<String, Schema.SObjectField> fieldMapsaccount = describeResultaccount.fields.getMap();
+     set<String> fieldNamesaccount = fieldMapsaccount.keySet();
+     list<string> ba=new list<string>();
+     ba.addAll((fieldnamesaccount));
+     set<string> fieldscontact=schema.getGlobalDescribe().get('contact').getDescribe().fields.getmap().keyset();
+     list<string> con=new list<string>();
+     con.addall(fieldscontact);
+     String soqlQueryaccount = ' SELECT ' + string.join(ba,',') + ' FROM ' + describeResultaccount.getName() + ' Where Id =:f1';
+    account ac= Database.query(soqlQueryaccount);
+     account c=[select id,(select id from contacts) from account where  id=:a.accountid ];
+     Map<String, Schema.FieldSet> account = 
+    Schema.SObjectType.Account.fieldSets.getMap();
+      Map<String, Schema.FieldSet> opportunity = 
+    Schema.SObjectType.opportunity.fieldSets.getMap();
+      Map<String, Schema.FieldSet> contacts = 
+    Schema.SObjectType.opportunity.fieldSets.getMap();
+     list<contact> ds=c.contacts;
+     map<string,object> info=new map<string,object>();
+     
+     for(string x1:opportunity.keyset())
+     {
+         schema.FieldSet fields=opportunity.get(x1);
+        list<schema.FieldSetMember> fieldlist= fields.getFields();
+         system.debug(fieldlist);
+       //  for(schema.FieldSetMember x4:fieldlist)
+         {// list<string> p=x4.get('sobjectfield');
+             // string c4=string.valueof(x4);
+         // info.put(x1,a.get(c4));
+          Map<String, Schema.SObjectType> GlobalDescribeMap = Schema.getGlobalDescribe(); 
+    Schema.SObjectType SObjectTypeObj = GlobalDescribeMap.get('opportunity');
+    Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();
+
+    //system.debug('====>' + DescribeSObjectResultObj.FieldSets.getMap().get(fieldSetName));
+
+  //  Schema.FieldSet fieldSetObj = DescribeSObjectResultObj.FieldSets.getMap().get(x1);
+    map<string,object> temp=new map<string,object>();
+   for(Schema.FieldSetMember fieldSetMemberObj : fieldlist)
+{  string f=fieldSetMemberObj.getfieldpath();
+     temp.put(f,a.get(f));
+   // system.debug('API Name ====>' + fieldSetMemberObj.getFieldPath()); //api name
+  //  system.debug('Label ====>' + fieldSetMemberObj.getLabel());
+  //  system.debug('Required ====>' + fieldSetMemberObj.getRequired());
+   // system.debug('DbRequired ====>' + fieldSetMemberObj.getDbRequired());
+  //  system.debug('Type ====>' + fieldSetMemberObj.getType());   //type - STRING,PICKLIST
+    
+} info.put(x1,temp);
+        //  system.debug(x4.get('sobjectfield'));
+           
+         }
+     }
+      
+     
+     
+       
+     for(string x1:account.keyset())
+     {
+         schema.FieldSet fields=account.get(x1);
+        list<schema.FieldSetMember> fieldlist= fields.getFields();
+         system.debug(fieldlist);
+          Map<String, Schema.SObjectType> GlobalDescribeMap = Schema.getGlobalDescribe(); 
+    Schema.SObjectType SObjectTypeObj = GlobalDescribeMap.get('account');
+    Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();
+
+    //system.debug('====>' + DescribeSObjectResultObj.FieldSets.getMap().get(fieldSetName));
+
+  //  Schema.FieldSet fieldSetObj = DescribeSObjectResultObj.FieldSets.getMap().get(x1);
+    map<string,object> temp=new map<string,object>();
+   for(Schema.FieldSetMember fieldSetMemberObj : fieldlist)
+{  string f=fieldSetMemberObj.getfieldpath();
+     temp.put(f,ac.get(f));
+   // system.debug('API Name ====>' + fieldSetMemberObj.getFieldPath()); //api name
+  //  system.debug('Label ====>' + fieldSetMemberObj.getLabel());
+  //  system.debug('Required ====>' + fieldSetMemberObj.getRequired());
+   // system.debug('DbRequired ====>' + fieldSetMemberObj.getDbRequired());
+  //  system.debug('Type ====>' + fieldSetMemberObj.getType());   //type - STRING,PICKLIST
+    
+} info.put(x1,temp);
+        //  system.debug(x4.get('sobjectfield'));
+           
+         }
+     
+  /*   for(string x11:contacts.keyset())
+     {     list<object> ds1=new list<object>();
+      
+    for(contact c3:ds)
+     { map<string,object> ner= new map<string,object>();
+        schema.FieldSet fields=contacts.get(x11);
+        list<object> fieldlist= fields.getFields();
+          Map<String, Schema.SObjectType> GlobalDescribeMap = Schema.getGlobalDescribe(); 
+    Schema.SObjectType SObjectTypeObj = GlobalDescribeMap.get('contact');
+    Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();
+
+    //system.debug('====>' + DescribeSObjectResultObj.FieldSets.getMap().get(fieldSetName));
+
+  //  Schema.FieldSet fieldSetObj = DescribeSObjectResultObj.FieldSets.getMap().get(x1);
+    map<string,object> temp=new map<string,object>();
+   for(Schema.FieldSetMember fieldSetMemberObj : fieldlist)
+{  string f=fieldSetMemberObj.getfieldpath();
+     temp.put(f,ac.get(f));
+   // system.debug('API Name ====>' + fieldSetMemberObj.getFieldPath()); //api name
+  //  system.debug('Label ====>' + fieldSetMemberObj.getLabel());
+  //  system.debug('Required ====>' + fieldSetMemberObj.getRequired());
+   // system.debug('DbRequired ====>' + fieldSetMemberObj.getDbRequired());
+  //  system.debug('Type ====>' + fieldSetMemberObj.getType());   //type - STRING,PICKLIST
+    
+}
+      ds1.add(ner);
+     }
+     info.put(x11,ds1);}
+      
+    */ 
+     
+      return  json.serialize(info);
+     
+  
+     }}
+
+
+
+
+
+response:
+HTTP/1.1 200 OK
+Date: Thu, 05 May 2022 14:45:55 GMT
+Set-Cookie: CookieConsentPolicy=0:1; path=/; expires=Fri, 05-May-2023 14:45:55 GMT; Max-Age=31536000
+Set-Cookie: LSKey-c$CookieConsentPolicy=0:1; path=/; expires=Fri, 05-May-2023 14:45:55 GMT; Max-Age=31536000
+Strict-Transport-Security: max-age=63072000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Robots-Tag: none
+Cache-Control: no-cache,must-revalidate,max-age=0,no-store,private
+Set-Cookie: BrowserId=EZ7_EsyCEeyeWBnXDj3blg; domain=.salesforce.com; path=/; expires=Fri, 05-May-2023 14:45:55 GMT; Max-Age=31536000
+Content-Type: application/json;charset=UTF-8
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Transfer-Encoding: chunked
+
+
+"{\"account\":{\"Name\":\"Express Logistics and Transport\",\"AnnualRevenue\":950000000,\"Description\":\"Commerical logistics and transportation company.\"},\"opportunity_owner\":{\"OwnerId\":\"0055i0000019RvyAAE\"},\"opportunity\":{\"IsClosed\":false,\"StageName\":\"Perception Analysis\",\"CloseDate\":\"2022-01-25\",\"Name\":\"Express Logistics SLA\"}}"
