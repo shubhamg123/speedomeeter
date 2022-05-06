@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#container{
+width:100vw;
+background-color: blue;
+height:100vh;
+
+}
+#car
+{
+  margin-top: 10px;
+  height: 40px;
+  width: 60px; 
+  position: relative; 
+}
+#direction{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    </style>
+</head>
+<body>
+   <div id="container"> 
+    <div id="direction">
+        <button  id="left">left</button>
+        <button id="right">right</button>
+        <button id="top">top</button>
+        <button id="bottom">bottom</button>
+    </div>  
+    
+    
+    <img src="/images/quiz.JPG" alt="imag" id="car">
+ </div>
+
+<script>
+let car=document.querySelector('#car')
+let leftbutton=document.querySelector('#left')
+let rightbutton=document.querySelector('#right')
+let topbutton=document.querySelector('#top')
+let bottombutton=document.querySelector('#bottom')
+rightbutton.addEventListener('click',moveright);
+leftbutton.addEventListener('click',moveleft)
+topbutton.addEventListener('click',movetop)
+bottombutton.addEventListener('click',movebottom)
+var marginleft=0;
+var margintop=10;
+let set;
+
+function moveright(){
+    clearInterval(set);
+    set= setInterval(()=>{
+       
+        const car=document.getElementById('car');
+        if(marginleft==1300)
+        {  marginleft=0;
+            car.style.marginLeft=marginleft +'px';
+            marginleft++;
+            }else{
+        car.style.marginLeft=marginleft +'px';
+        marginleft++;
+        }
+    },1);
+    
+  
+
+};
+function moveleft(){
+    clearInterval(set);
+     set= setInterval(()=>{
+        //let marginright=marginleft;
+         const car1=document.getElementById('car');
+         if(marginleft==0)
+         {  marginleft=1300;
+             car1.style.marginLeft=marginleft +'px';
+             marginleft--;
+             }else{
+         car1.style.marginLeft=marginleft +'px';
+         marginleft--;
+         }
+     },1);
+     
+ 
+ 
+ };
+ function movetop(){
+   clearInterval(set);
+     set= setInterval(()=>{
+        //let marginright=marginleft;
+         const car1=document.getElementById('car');
+         if(margintop==10)
+         {  margintop=window.innerHeight;
+          console.log(margintop)
+             car1.style.marginTop=margintop;
+             car1.style.marginLeft=marginleft +'px';
+             margintop--;
+             }else{
+         car1.style.marginTop=margintop +'px';
+         car1.style.marginLeft=marginleft +'px';
+         margintop--;
+         }
+     },1);
+     
+ 
+ 
+ };
+ function movebottom(){
+    clearInterval(set);
+     set= setInterval(()=>{
+       // let marginright=marginleft;
+         const car1=document.getElementById('car');
+         if(margintop==window.innerHeight)
+         {  margintop=10;
+          console.log(margintop)
+             car1.style.marginTop=margintop;
+             car1.style.marginLeft=marginleft +'px';
+             margintop++;
+             }else{
+         car1.style.marginTop=margintop +'px';
+         car1.style.marginLeft=marginleft +'px';
+         margintop++;
+         }
+     },1);
+     
+ 
+ 
+ };
+ 
+ 
+
+</script>
+
+
+</body>
+</html>
